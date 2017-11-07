@@ -27,6 +27,8 @@ function Level(plan) {
       // Because there is a third case (space ' '), use an "else if" instead of "else"
       else if (ch == "!")
         fieldType = "lava";
+      else if (ch == 'y')
+        fieldType = 'floater';
 
       // "Push" the fieldType, which is a string, onto the gridLine array (at the end).
       gridLine.push(fieldType);
@@ -59,7 +61,7 @@ function Player(pos) {
 }
 Player.prototype.type = "player";
 
-// Helper function to easily create an element of a type provided 
+// Helper function to easily create an element of a type provided
 // and assign it a class.
 function elt(name, className) {
   var elt = document.createElement(name);
@@ -154,7 +156,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
 // Update simulation each step based on keys & step size
 Level.prototype.animate = function(step, keys) {
 
-  // Ensure each is maximum 100 milliseconds 
+  // Ensure each is maximum 100 milliseconds
   while (step > 0) {
     var thisStep = Math.min(step, maxStep);
       this.player.act(thisStep, this, keys);
@@ -206,9 +208,9 @@ var arrowCodes = {37: "left", 38: "up", 39: "right", 40: "down"};
 function trackKeys(codes) {
   var pressed = Object.create(null);
 
-  // alters the current "pressed" array which is returned from this function. 
+  // alters the current "pressed" array which is returned from this function.
   // The "pressed" variable persists even after this function terminates
-  // That is why we needed to assign it using "Object.create()" as 
+  // That is why we needed to assign it using "Object.create()" as
   // otherwise it would be garbage collected
 
   function handler(event) {
@@ -216,7 +218,7 @@ function trackKeys(codes) {
       // If the event is keydown, set down to true. Else set to false.
       var down = event.type == "keydown";
       pressed[codes[event.keyCode]] = down;
-      // We don't want the key press to scroll the browser window, 
+      // We don't want the key press to scroll the browser window,
       // This stops the event from continuing to be processed
       event.preventDefault();
     }
